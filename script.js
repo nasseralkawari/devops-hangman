@@ -57,7 +57,7 @@ function loadWordBank() {
 }
 
 function saveWordBank() {
-    localStorage.setItem('devopsWords', JSON.stringify(wordBank));
+    localStorage.setItem('wordBank', JSON.stringify(wordBank));
 }
 
 function displayWordBank() {
@@ -95,11 +95,30 @@ function addWord() {
     const input = document.getElementById('newWord');
     const word = input.value.trim().toUpperCase();
 
+    // Empty not allowed
+    if (!word) {
+        alert('Word cannot be empty.');
+        return;
+    }
+
+    // Letters A-Z only
+    if (!/^[A-Z]+$/.test(word)) {
+        alert('Word must contain only letters A-Z.');
+        return;
+    }
+
+    // Duplicate not allowed
+    if (wordBank.includes(word)) {
+        alert('Duplicate word not allowed.');
+        return;
+    }
+
     wordBank.push(word);
     input.value = '';
     saveWordBank();
     displayWordBank();
 }
+
 
 function editWord(index) {
     const newWord = prompt('Edit word:', wordBank[index]);
