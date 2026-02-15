@@ -20,19 +20,32 @@ let gameState = {
 let wordBank = [];
 
 document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
     loadWordBank();
     generateKeyboard();
 });
 
 function toggleTheme() {
     const themeIcon = document.querySelector('.theme-icon');
-    
-    if (themeIcon.textContent === '🌙') {
-        themeIcon.textContent = '☀️';
-    } else {
-        themeIcon.textContent = '🌙';
-    }
+    const isDark = document.body.classList.toggle('dark');
+
+    // Save preference
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+    // Update icon: 🌙 for light mode, ☀️ for dark mode
+    themeIcon.textContent = isDark ? '☀️' : '🌙';
 }
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const themeIcon = document.querySelector('.theme-icon');
+
+    const isDark = savedTheme === 'dark';
+    document.body.classList.toggle('dark', isDark);
+    themeIcon.textContent = isDark ? '☀️' : '🌙';
+}
+
+
 
 function switchTab(tabName) {
     const tabs = document.querySelectorAll('.tab-content');

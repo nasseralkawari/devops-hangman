@@ -527,3 +527,109 @@ body.dark-mode .add-word-form input {
 body.dark-mode .empty-state {
     color: #999;
 }
+
+/* =========================
+   Better Dark Mode (Issue #5 polish)
+   Paste at end of style.css
+   ========================= */
+
+   body.dark {
+    background: #0f0f10;
+    color: #eaeaea;
+  }
+  
+  /* Main app panel/background areas */
+  body.dark .container,
+  body.dark .tab-content,
+  body.dark .game-container,
+  body.dark .content,
+  body.dark .main-content {
+    background: #1a1a1c;
+    color: #eaeaea;
+  }
+  
+  /* Cards / sections like "Player Setup" */
+  body.dark .card,
+  body.dark .panel,
+  body.dark .section,
+  body.dark .setup-container,
+  body.dark .player-setup,
+  body.dark .player-setup-container {
+    background: #222225;
+    color: #eaeaea;
+    border: 1px solid #2f2f33;
+  }
+  
+  /* Headings inside cards */
+  body.dark h1,
+  body.dark h2,
+  body.dark h3,
+  body.dark h4,
+  body.dark .title {
+    color: #ffffff;
+  }
+  
+  /* Inputs */
+  body.dark input,
+  body.dark textarea,
+  body.dark select {
+    background: #151518;
+    color: #eaeaea;
+    border: 1px solid #3a3a40;
+  }
+  
+  body.dark input::placeholder,
+  body.dark textarea::placeholder {
+    color: #9b9ba3;
+  }
+  
+  /* Buttons */
+  body.dark button {
+    background: #2b2b30;
+    color: #ffffff;
+    border: 1px solid #3a3a40;
+  }
+  
+  body.dark button:hover {
+    filter: brightness(1.08);
+  }
+  
+  body.dark button:disabled {
+    opacity: 0.55;
+  }
+  
+  /* Tabs */
+  body.dark .tab {
+    background: #1f1f22;
+    color: #d9d9df;
+    border-bottom: 1px solid #2f2f33;
+  }
+  
+  body.dark .tab.active {
+    background: #2b2b30;
+    color: #ffffff;
+  }
+  
+  /* Make the white card not clash */
+  body.dark .player-setup,
+  body.dark .player-setup * {
+    color: inherit;
+  }
+  
+  /* Optional: soften the big white areas if you have them */
+  body.dark .box,
+  body.dark .score-box,
+  body.dark .word-bank,
+  body.dark .word-item {
+    background: #222225;
+    border: 1px solid #2f2f33;
+  }
+
+  /* Make word bank text white in dark mode */
+body.dark .word-item,
+body.dark .word-item .word,
+body.dark .word-item span {
+  color: #ffffff !important;
+}
+
+  
