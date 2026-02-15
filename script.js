@@ -316,3 +316,5 @@ function gameLost() {
     
     gameState.currentPlayer = gameState.currentPlayer === 1 ? 2 : 1;
 }
+
+//
