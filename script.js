@@ -131,10 +131,14 @@ function editWord(index) {
 
 function deleteWord(index) {
     if (confirm('Are you sure you want to delete this word?')) {
+        // Remove the correct word
+        wordBank.splice(index, 1);
+
         saveWordBank();
         displayWordBank();
     }
 }
+
 
 function generateKeyboard() {
     const keyboard = document.getElementById('keyboard');
