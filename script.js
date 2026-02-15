@@ -24,6 +24,19 @@ document.addEventListener('DOMContentLoaded', function() {
     generateKeyboard();
 });
 
+function normalizeWord(raw) {
+    return (raw || "").trim().toUpperCase();
+  }
+  
+  function isValidWord(word) {
+    return /^[A-Z]+$/.test(word); // only A-Z, at least 1 char
+  }
+  
+  function isDuplicateWord(word, wordBank) {
+    // assumes wordBank stores uppercase words
+    return wordBank.includes(word);
+  }
+  
 function toggleTheme() {
     const themeIcon = document.querySelector('.theme-icon');
     
@@ -91,16 +104,31 @@ function displayWordBank() {
     });
 }
 
-function addWord() {
-    const input = document.getElementById('newWord');
-    const word = input.value.trim().toUpperCase();
-
+function addWordFromInput() {
+    const inputEl = document.getElementById("wordInput"); // CHANGE if your id differs
+    const raw = inputEl.value;
+  
+    const word = normalizeWord(raw);
+  
+    if (!word) {
+      alert("Word cannot be empty.");
+      return;
+    }
+    if (!isValidWord(word)) {
+      alert("Word must contain letters A-Z only.");
+      return;
+    }
+    if (isDuplicateWord(word, wordBank)) {
+      alert("Duplicate word not allowed.");
+      return;
+    }
+  
     wordBank.push(word);
-    input.value = '';
-    saveWordBank();
-    displayWordBank();
-}
-
+    saveWordBank();     // your existing function that writes to localStorage
+    renderWordBank();   // your existing function that redraws list + count
+    inputEl.value = "";
+  }
+  
 function editWord(index) {
     const newWord = prompt('Edit word:', wordBank[index]);
     if (newWord) {
