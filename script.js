@@ -24,19 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     generateKeyboard();
 });
 
-function normalizeWord(raw) {
-    return (raw || "").trim().toUpperCase();
-  }
-  
-  function isValidWord(word) {
-    return /^[A-Z]+$/.test(word); // only A-Z, at least 1 char
-  }
-  
-  function isDuplicateWord(word, wordBank) {
-    // assumes wordBank stores uppercase words
-    return wordBank.includes(word);
-  }
-  
+
 function toggleTheme() {
     const themeIcon = document.querySelector('.theme-icon');
     
@@ -104,31 +92,40 @@ function displayWordBank() {
     });
 }
 
-function addWordFromInput() {
-    const inputEl = document.getElementById("wordInput"); // CHANGE if your id differs
-    const raw = inputEl.value;
-  
-    const word = normalizeWord(raw);
-  
+/**
+ * Issue #1 fix ONLY: validate new word input
+ * - no empty
+ * - letters A-Z only
+ * - no duplicates
+ */
+function addWord() {
+    const input = document.getElementById('newWord');
+    const word = input.value.trim().toUpperCase();
+
+    // Empty not allowed
     if (!word) {
-      alert("Word cannot be empty.");
-      return;
+        alert('Word cannot be empty.');
+        return;
     }
-    if (!isValidWord(word)) {
-      alert("Word must contain letters A-Z only.");
-      return;
+
+    // Letters A-Z only (no numbers/symbols/spaces)
+    if (!/^[A-Z]+$/.test(word)) {
+        alert('Word must contain only letters A-Z.');
+        return;
     }
-    if (isDuplicateWord(word, wordBank)) {
-      alert("Duplicate word not allowed.");
-      return;
+
+    // Duplicate not allowed
+    if (wordBank.includes(word)) {
+        alert('Duplicate word not allowed.');
+        return;
     }
-  
+
     wordBank.push(word);
-    saveWordBank();     // your existing function that writes to localStorage
-    renderWordBank();   // your existing function that redraws list + count
-    inputEl.value = "";
-  }
-  
+    input.value = '';
+    saveWordBank();
+    displayWordBank();
+}
+
 function editWord(index) {
     const newWord = prompt('Edit word:', wordBank[index]);
     if (newWord) {
